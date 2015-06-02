@@ -1,0 +1,6 @@
+#attributed #weighted
+eins:1,zwei:1::1
+drei:1,vier:1::2
+eins:1,fuenf:1::4
+zwei:1,drei:1::3
+eins:1,vier:1::2

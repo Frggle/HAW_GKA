@@ -9,8 +9,8 @@ import org.jgrapht.graph.Pseudograph;
 import org.jgrapht.graph.WeightedPseudograph;
 import org.junit.Test;
 
-import task_3.CustomVertex;
-import task_3.Service.GraphVizExporter;
+import task_4.CustomVertex;
+import task_4.Service.GraphVizExporter;
 
 public class GraphVizExporterTest
 {

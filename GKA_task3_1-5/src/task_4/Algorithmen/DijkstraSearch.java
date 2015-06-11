@@ -1,4 +1,4 @@
-package task_3.Algorithmen;
+package task_4.Algorithmen;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -7,7 +7,7 @@ import java.util.Set;
 
 import org.jgrapht.Graph;
 
-import task_3.CustomVertex;
+import task_4.CustomVertex;
 
 /*
  * Weg von Husum nach Hamburg

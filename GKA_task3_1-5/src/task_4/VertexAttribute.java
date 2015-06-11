@@ -1,4 +1,4 @@
-package task_3;
+package task_4;
 
 import org.jgrapht.graph.DefaultWeightedEdge;
 

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
-import task_3.Service.Scanner;
+import task_4.Service.Scanner;
 
 public class ScannerTest
 {

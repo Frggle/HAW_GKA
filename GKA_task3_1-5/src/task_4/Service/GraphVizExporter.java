@@ -1,4 +1,4 @@
-package task_3.Service;
+package task_4.Service;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -14,7 +14,7 @@ import org.jgrapht.ext.IntegerNameProvider;
 import org.jgrapht.ext.StringNameProvider;
 import org.jgrapht.graph.DefaultWeightedEdge;
 
-import task_3.CustomVertex;
+import task_4.CustomVertex;
 
 public class GraphVizExporter
 {

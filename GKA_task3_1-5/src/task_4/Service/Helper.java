@@ -1,4 +1,4 @@
-package task_3.Service;
+package task_4.Service;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -9,7 +9,7 @@ import java.util.Set;
 import org.jgrapht.Graph;
 import org.jgrapht.graph.DefaultWeightedEdge;
 
-import task_3.CustomVertex;
+import task_4.CustomVertex;
 
 public class Helper
 {

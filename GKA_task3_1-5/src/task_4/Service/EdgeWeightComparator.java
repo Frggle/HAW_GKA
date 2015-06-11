@@ -1,11 +1,11 @@
-package task_3.Service;
+package task_4.Service;
 
 import java.util.Comparator;
 
 import org.jgrapht.Graph;
 import org.jgrapht.graph.DefaultWeightedEdge;
 
-import task_3.CustomVertex;
+import task_4.CustomVertex;
 
 @SuppressWarnings("hiding")
 public class EdgeWeightComparator<DefaultWeightedEdge> implements Comparator<DefaultWeightedEdge>

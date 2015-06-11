@@ -1,4 +1,4 @@
-package task_3.GraphGenerator;
+package task_4.GraphGenerator;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,7 +11,7 @@ import org.jgrapht.generate.RandomGraphGenerator;
 import org.jgrapht.graph.DefaultWeightedEdge;
 import org.jgrapht.graph.WeightedPseudograph;
 
-import task_3.CustomVertex;
+import task_4.CustomVertex;
 
 public class GraphGen_ohne_Gewichtung_Heuristic
 {

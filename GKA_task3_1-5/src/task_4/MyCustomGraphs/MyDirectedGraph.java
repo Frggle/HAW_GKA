@@ -1,9 +1,9 @@
-package task_3.MyCustomGraphs;
+package task_4.MyCustomGraphs;
 
 import org.jgrapht.graph.DefaultWeightedEdge;
 import org.jgrapht.graph.DirectedPseudograph;
 
-import task_3.CustomVertex;
+import task_4.CustomVertex;
 
 
 public class MyDirectedGraph extends DirectedPseudograph<CustomVertex, DefaultWeightedEdge>

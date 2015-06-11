@@ -1,4 +1,4 @@
-package task_3.Algorithmen;
+package task_4.Algorithmen;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -7,9 +7,9 @@ import org.jgrapht.Graph;
 import org.jgrapht.graph.DefaultWeightedEdge;
 import org.jgrapht.graph.WeightedPseudograph;
 
-import task_3.CustomPriorityQueue;
-import task_3.CustomVertex;
-import task_3.VertexAttribute;
+import task_4.CustomPriorityQueue;
+import task_4.CustomVertex;
+import task_4.VertexAttribute;
 
 public class Prim_ohne_Heap
 {

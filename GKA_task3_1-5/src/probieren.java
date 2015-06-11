@@ -4,9 +4,9 @@ import org.jgrapht.graph.DefaultWeightedEdge;
 import org.jgrapht.graph.Pseudograph;
 import org.jgrapht.graph.WeightedPseudograph;
 
-import task_3.CustomVertex;
-import task_3.Algorithmen.Kruskal;
-import task_3.Service.GraphVizExporter;
+import task_4.CustomVertex;
+import task_4.Algorithmen.Kruskal;
+import task_4.Service.GraphVizExporter;
 
 public class probieren
 {

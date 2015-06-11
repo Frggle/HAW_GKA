@@ -1,4 +1,4 @@
-package task_3.GraphGenerator;
+package task_4.GraphGenerator;
 
 import java.util.Random;
 import java.util.Set;
@@ -7,7 +7,7 @@ import org.jgrapht.Graph;
 import org.jgrapht.graph.DefaultWeightedEdge;
 import org.jgrapht.graph.WeightedPseudograph;
 
-import task_3.CustomVertex;
+import task_4.CustomVertex;
 
 public class GraphGen_mit_Gewichtung
 {

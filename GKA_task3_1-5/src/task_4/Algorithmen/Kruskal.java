@@ -1,4 +1,4 @@
-package task_3.Algorithmen;
+package task_4.Algorithmen;
 
 import java.util.ArrayList;
 import java.util.Set;
@@ -8,7 +8,7 @@ import org.jgrapht.graph.AbstractBaseGraph;
 import org.jgrapht.graph.DefaultWeightedEdge;
 import org.jgrapht.graph.WeightedPseudograph;
 
-import task_3.CustomVertex;
+import task_4.CustomVertex;
 
 public class Kruskal
 {

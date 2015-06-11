@@ -1,4 +1,4 @@
-package task_3.MyCustomGraphs;
+package task_4.MyCustomGraphs;
 
 import org.jgrapht.graph.DefaultWeightedEdge;
 import org.jgrapht.graph.WeightedPseudograph;

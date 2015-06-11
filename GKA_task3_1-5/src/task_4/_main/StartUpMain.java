@@ -1,4 +1,4 @@
-package task_3._main;
+package task_4._main;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,20 +12,20 @@ import org.jgrapht.graph.DirectedWeightedPseudograph;
 import org.jgrapht.graph.Pseudograph;
 import org.jgrapht.graph.WeightedPseudograph;
 
-import task_3.CustomVertex;
-import task_3.Algorithmen.AStarSearch;
-import task_3.Algorithmen.BreadthFirstSearch;
-import task_3.Algorithmen.DijkstraSearch;
-import task_3.Algorithmen.Kruskal;
-import task_3.Algorithmen.Prim_Heap;
-import task_3.Algorithmen.Prim_ohne_Heap;
-import task_3.MyCustomGraphs.MyDirectedGraph;
-import task_3.MyCustomGraphs.MyDirectedWeightedGraph;
-import task_3.MyCustomGraphs.MyUndirectedGraph;
-import task_3.MyCustomGraphs.MyUndirectedWeightedGraph;
-import task_3.Service.GraphVizExporter;
-import task_3.Service.Helper;
-import task_3.Service.Scanner;
+import task_4.CustomVertex;
+import task_4.Algorithmen.AStarSearch;
+import task_4.Algorithmen.BreadthFirstSearch;
+import task_4.Algorithmen.DijkstraSearch;
+import task_4.Algorithmen.Kruskal;
+import task_4.Algorithmen.Prim_Heap;
+import task_4.Algorithmen.Prim_ohne_Heap;
+import task_4.MyCustomGraphs.MyDirectedGraph;
+import task_4.MyCustomGraphs.MyDirectedWeightedGraph;
+import task_4.MyCustomGraphs.MyUndirectedGraph;
+import task_4.MyCustomGraphs.MyUndirectedWeightedGraph;
+import task_4.Service.GraphVizExporter;
+import task_4.Service.Helper;
+import task_4.Service.Scanner;
 
 public class StartUpMain
 {

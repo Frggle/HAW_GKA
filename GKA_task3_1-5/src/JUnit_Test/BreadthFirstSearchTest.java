@@ -7,8 +7,8 @@ import java.util.List;
 
 import org.junit.Test;
 
-import task_3.CustomVertex;
-import task_3._main.StartUpMain;
+import task_4.CustomVertex;
+import task_4._main.StartUpMain;
 
 
 public class BreadthFirstSearchTest

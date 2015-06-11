@@ -6,7 +6,7 @@ import org.jgrapht.Graph;
 import org.jgrapht.graph.Pseudograph;
 import org.junit.Test;
 
-import task_3.MyCustomGraphs.MyUndirectedGraph;
+import task_4.MyCustomGraphs.MyUndirectedGraph;
 
 public class MyUndirectedGraphTest
 {

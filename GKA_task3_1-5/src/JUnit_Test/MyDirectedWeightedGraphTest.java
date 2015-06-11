@@ -6,7 +6,7 @@ import org.jgrapht.Graph;
 import org.jgrapht.graph.DirectedWeightedPseudograph;
 import org.junit.Test;
 
-import task_3.MyCustomGraphs.MyDirectedWeightedGraph;
+import task_4.MyCustomGraphs.MyDirectedWeightedGraph;
 
 public class MyDirectedWeightedGraphTest
 {

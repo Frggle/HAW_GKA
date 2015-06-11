@@ -1,4 +1,4 @@
-package task_3.GraphGenerator;
+package task_4.GraphGenerator;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,8 +9,8 @@ import org.jgrapht.Graph;
 import org.jgrapht.graph.DefaultWeightedEdge;
 import org.jgrapht.graph.WeightedPseudograph;
 
-import task_3.CustomVertex;
-import task_3.MyCustomGraphs.MyUndirectedWeightedGraph;
+import task_4.CustomVertex;
+import task_4.MyCustomGraphs.MyUndirectedWeightedGraph;
 
 public class GraphGen_mit_Gewichtung_Heuristic
 {

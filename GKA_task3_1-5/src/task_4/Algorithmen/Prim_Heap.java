@@ -1,4 +1,4 @@
-package task_3.Algorithmen;
+package task_4.Algorithmen;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -11,7 +11,7 @@ import org.jgrapht.graph.WeightedPseudograph;
 import org.jgrapht.util.FibonacciHeap;
 import org.jgrapht.util.FibonacciHeapNode;
 
-import task_3.CustomVertex;
+import task_4.CustomVertex;
 
 public class Prim_Heap
 {

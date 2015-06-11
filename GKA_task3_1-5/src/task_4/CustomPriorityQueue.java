@@ -1,4 +1,4 @@
-package task_3;
+package task_4;
 
 import java.util.Comparator;
 import java.util.HashMap;

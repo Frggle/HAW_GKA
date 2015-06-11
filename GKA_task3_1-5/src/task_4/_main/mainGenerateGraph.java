@@ -1,10 +1,10 @@
-package task_3._main;
+package task_4._main;
 
 import java.util.Random;
 
-import task_3.GraphGenerator.GraphGen_mit_Gewichtung_Heuristic;
-import task_3.Service.GraphVizExporter;
-import task_3.Service.Helper;
+import task_4.GraphGenerator.GraphGen_mit_Gewichtung_Heuristic;
+import task_4.Service.GraphVizExporter;
+import task_4.Service.Helper;
 
 public class mainGenerateGraph
 {

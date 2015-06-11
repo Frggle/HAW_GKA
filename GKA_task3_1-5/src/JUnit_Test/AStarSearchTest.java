@@ -10,10 +10,10 @@ import org.jgrapht.Graph;
 import org.jgrapht.graph.DefaultWeightedEdge;
 import org.junit.Test;
 
-import task_3.CustomVertex;
-import task_3.Algorithmen.AStarSearch;
-import task_3.Algorithmen.DijkstraSearch;
-import task_3._main.StartUpMain;
+import task_4.CustomVertex;
+import task_4.Algorithmen.AStarSearch;
+import task_4.Algorithmen.DijkstraSearch;
+import task_4._main.StartUpMain;
 
 public class AStarSearchTest
 {

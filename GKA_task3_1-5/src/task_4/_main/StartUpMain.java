@@ -16,6 +16,7 @@ import task_4.CustomVertex;
 import task_4.Algorithmen.AStarSearch;
 import task_4.Algorithmen.BreadthFirstSearch;
 import task_4.Algorithmen.DijkstraSearch;
+import task_4.Algorithmen.FleuryEulertour;
 import task_4.Algorithmen.Kruskal;
 import task_4.Algorithmen.Prim_Heap;
 import task_4.Algorithmen.Prim_ohne_Heap;
@@ -40,8 +41,11 @@ public class StartUpMain
 //		CustomVertex start = new CustomVertex("Endknoten", 0);
 //		CustomVertex ende = new CustomVertex("Endknoten", 0);
 
-		CustomVertex start = new CustomVertex("Muenster", 237);
-		CustomVertex ende = new CustomVertex("Hamburg", 0);
+//		CustomVertex start = new CustomVertex("Muenster", 237);
+//		CustomVertex ende = new CustomVertex("Hamburg", 0);
+		
+		CustomVertex start = new CustomVertex("eins");
+		CustomVertex ende = new CustomVertex("eins");
 				
 		// welcher Algorithmus
 		// bfs = BreadthFirstSearch
@@ -50,7 +54,7 @@ public class StartUpMain
 		String algorithmus = "";
 
 		// Dateipfad
-		String path = "./src/bspGraphen/bsp3.graph";
+		String path = "./src/bspGraphen/eulerMini1.graph";
 
 		List<CustomVertex> loesung = programmStarten(path, start, ende, algorithmus);
 //		 List<CustomVertex> loesung = programmStarten(args[0], start, ende, args[1]);
@@ -100,11 +104,12 @@ public class StartUpMain
 		{
 			if (scanner.gibDirected())
 			{
-				graph = new MyDirectedWeightedGraph();
+//				graph = new MyDirectedWeightedGraph();
+				graph = new DirectedWeightedPseudograph<CustomVertex, DefaultWeightedEdge>(DefaultWeightedEdge.class);
 			} else if (scanner.gibUndirected() ^ scanner.gibAttributed())
 			{
-				graph = new MyUndirectedWeightedGraph();
-//				graph = new WeightedPseudograph<CustomVertex, DefaultWeightedEdge>(DefaultWeightedEdge.class);
+//				graph = new MyUndirectedWeightedGraph();
+				graph = new WeightedPseudograph<CustomVertex, DefaultWeightedEdge>(DefaultWeightedEdge.class);
 			}
 			for (String content : bereinigtesArray)
 			{
@@ -211,13 +216,16 @@ public class StartUpMain
 		{
 			if (scanner.gibDirected())
 			{
-				graph = new MyDirectedGraph();
+//				graph = new MyDirectedGraph();
+				graph = new DirectedWeightedPseudograph<CustomVertex, DefaultWeightedEdge>(DefaultWeightedEdge.class);
 			} else if (scanner.gibUndirected())
 			{
-				graph = new MyUndirectedGraph();
+//				graph = new MyUndirectedGraph();
+				graph = new WeightedPseudograph<CustomVertex, DefaultWeightedEdge>(DefaultWeightedEdge.class);
 			} else
 			{
-				graph = new MyUndirectedGraph();
+//				graph = new MyUndirectedGraph();
+				graph = new WeightedPseudograph<CustomVertex, DefaultWeightedEdge>(DefaultWeightedEdge.class);
 			}
 			for (String content : bereinigtesArray)
 			{
@@ -342,6 +350,14 @@ public class StartUpMain
 		System.err.println("");
 		new GraphVizExporter().exportGraphToDotFile(prim2.gibGraph(), "gespeicherterPrimOhneHeap");
 		
+		
+		
+		// Fleury
+		FleuryEulertour fleury = new FleuryEulertour(graph);
+		System.err.println("Kantenfolge Fleury " + fleury.gibKantenfolge());
+		
+		System.err.println("");
+		
 
 		// ********************************************************************************************************************
 		// ********************************************************************************************************************
@@ -451,25 +467,7 @@ public class StartUpMain
 		System.out.println();
 		System.out.println("Dijkstra von JGraphT: " + dijkstraJGraphT.getPath());
 		System.out.println("Weglänge: " + dijkstraJGraphT.getPathLength());
-		// System.out.println("Dijkstra von JGraphT-Länge: " +
-		// dijkstraJGraphT.getPathLength());
-
-		// int gegebeneKnotenAnzahl = 10;
-		// //in max = 100;
-		// int min = 2;
-		// Random random = new Random();
-		// int numEdge = random.nextInt(gegebeneKnotenAnzahl - min + 1) +
-		// gegebeneKnotenAnzahl;
-		//
-		// // NumVertexes, NumEdges
-		// GraphGen_mit_Gewichtung_Heuristic gGen = new
-		// GraphGen_mit_Gewichtung_Heuristic(gegebeneKnotenAnzahl, numEdge);
-		// String pathRandomGraph = "./src/bspGraphen/randomGraph.graph";
-		// helper.randomGraphSpeichern(gGen.gibGraph(), pathRandomGraph, false);
-		//
-		// String randomDateiName = "randomGraph";
-		// new GraphVizExporter().exportGraphToDotFile(gGen.gibGraph(),
-		// randomDateiName);
+	
 
 		return mainReturnValue;
 	}

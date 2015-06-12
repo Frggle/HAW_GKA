@@ -1,0 +1,2 @@
+Länge des kürzesten Wegs: 300
+Kürzester Weg: Muenster, Bremen, Hamburg, 

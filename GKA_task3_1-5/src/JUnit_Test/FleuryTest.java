@@ -19,7 +19,7 @@ public class FleuryTest
 	@Test
 	public void FleuryAnzahlKanten1()
 	{
-		String path = "./src/bspGraphen/eulerMini1.graph";
+		String path = "./src/bspGraphen/eulerNikolaus.graph";
 		CustomVertex start = new CustomVertex("eins");
 		CustomVertex ende = new CustomVertex("eins");
 		
@@ -71,13 +71,6 @@ public class FleuryTest
 		Graph<CustomVertex, DefaultWeightedEdge> g = main.gibGraph();
 
 		FleuryEulertour fleury = new FleuryEulertour(g);
-
-		
-		System.err.println("---------------------------------------------------");
-		System.err.println("---------------------------------------------------");
-		System.err.println("Kantenfolge " + fleury.gibKantenfolge());
-//		System.err.println("ersterKnoten " + ersterKnoten.getVertexName());
-//		System.err.println("letzerKnoten " + letzterKnoten.getVertexName());
 				
 		assertEquals(fleury.gibStartknoten(), fleury.gibEndknoten());
 	}
@@ -87,7 +80,7 @@ public class FleuryTest
 	@Test
 	public void FleuryStartEndknoten2()
 	{
-		String path = "./src/bspGraphen/eulerMini1.graph";
+		String path = "./src/bspGraphen/eulerNikolaus.graph";
 		CustomVertex start = new CustomVertex("eins");
 		CustomVertex ende = new CustomVertex("eins");
 		
@@ -109,7 +102,7 @@ public class FleuryTest
 	@Test
 	public void Fleury100Zyklen()
 	{
-		String path = "./src/bspGraphen/eulerMini1.graph";
+		String path = "./src/bspGraphen/eulerNikolaus.graph";
 		CustomVertex start = new CustomVertex("eins");
 		CustomVertex ende = new CustomVertex("eins");
 
@@ -125,5 +118,25 @@ public class FleuryTest
 			fleury = new FleuryEulertour(g);	
 			assertEquals(fleury.gibStartknoten(), fleury.gibEndknoten());
 		}
+	}
+	
+	/*
+	 * ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	 */
+
+	@SuppressWarnings({ "static-access", "unused" })
+	@Test(expected=IllegalArgumentException.class)
+	public void FleuryNegativTest()
+	{
+		String path = "./src/bspGraphen/eulerKeinNikolaus.graph";
+		CustomVertex start = new CustomVertex("eins");
+		CustomVertex ende = new CustomVertex("eins");
+
+		StartUpMain main = new StartUpMain();
+
+		List<CustomVertex> temp = main.programmStarten(path, start, ende, "fleury");
+		Graph<CustomVertex, DefaultWeightedEdge> g = main.gibGraph();
+
+		FleuryEulertour fleury = new FleuryEulertour(g);
 	}
 }

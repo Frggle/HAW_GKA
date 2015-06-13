@@ -17,6 +17,7 @@ import task_4.Algorithmen.AStarSearch;
 import task_4.Algorithmen.BreadthFirstSearch;
 import task_4.Algorithmen.DijkstraSearch;
 import task_4.Algorithmen.FleuryEulertour;
+import task_4.Algorithmen.HierholzerEulertour;
 import task_4.Algorithmen.Kruskal;
 import task_4.Algorithmen.Prim_Heap;
 import task_4.Algorithmen.Prim_ohne_Heap;
@@ -54,7 +55,7 @@ public class StartUpMain
 		String algorithmus = "";
 
 		// Dateipfad
-		String path = "./src/bspGraphen/eulerMini1.graph";
+		String path = "./src/bspGraphen/eulerNikolaus.graph";
 
 		List<CustomVertex> loesung = programmStarten(path, start, ende, algorithmus);
 //		 List<CustomVertex> loesung = programmStarten(args[0], start, ende, args[1]);
@@ -355,6 +356,10 @@ public class StartUpMain
 		// Fleury
 		FleuryEulertour fleury = new FleuryEulertour(graph);
 		System.err.println("Kantenfolge Fleury " + fleury.gibKantenfolge());
+		
+		// Hierholzer
+		HierholzerEulertour hierholzer = new HierholzerEulertour(graph);
+		System.err.println("Kantenfolge Hierholzer " + hierholzer.gibKantenfolge());
 		
 		System.err.println("");
 		

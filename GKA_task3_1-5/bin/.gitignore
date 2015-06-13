@@ -1,4 +1,14 @@
+/.DS_Store
 /JUnit_Test/
-/task_3/
-/task_4/
+/_AStarSolulution.txt
+/_BFSsolution.txt
+/_Dijkstrasolution.txt
 /bspGraphen/
+/jgraph-5.13.0.0.jar
+/jgrapht-core-0.9.0.jar
+/jgrapht-demo-0.9.0.jar
+/jgrapht-ext-0.9.0-uber.jar
+/jgrapht-ext-0.9.0.jar
+/jgraphx-2.0.0.1.jar
+/task_4/
+/probieren.class

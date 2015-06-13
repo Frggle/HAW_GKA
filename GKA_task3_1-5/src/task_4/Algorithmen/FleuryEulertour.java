@@ -21,7 +21,7 @@ public class FleuryEulertour
 	private CustomVertex startKnoten;
 	private CustomVertex endKnoten;
 
-	public FleuryEulertour(Graph<CustomVertex, DefaultWeightedEdge> _g)
+	public FleuryEulertour(Graph<CustomVertex, DefaultWeightedEdge> _g) throws IllegalArgumentException
 	{
 		g = _g;
 		kantenfolge = new ArrayList<DefaultWeightedEdge>();
@@ -50,12 +50,8 @@ public class FleuryEulertour
 			}	
 		} else
 		{
-			System.err.println("Vorbedingung verletzt!!!");
-		}
-		
-		System.err.println("Startknoten " + startKnoten.getVertexName());
-		System.err.println("Endknoten " + endKnoten.getVertexName());
-		
+			throw new IllegalArgumentException("Vorbedingung verletzt!!! -> keine Eulertour möglich");
+		}	
 	}
 
 	@SuppressWarnings("unchecked")
@@ -98,10 +94,7 @@ public class FleuryEulertour
 				nonBridges.add(e);
 			}
 		}
-		
-		System.err.println("Bridge " + bridgeEdges);
-		System.err.println("Non " + nonBridges);
-				
+						
 		DefaultWeightedEdge edge = null;
 		if(nonBridges.isEmpty())
 		{

@@ -1,0 +1,9 @@
+#undirected
+eins,zwei
+zwei,drei
+drei,vier
+vier,drei
+vier,fuenf
+fuenf,eins
+fuenf,zwei
+fuenf,drei

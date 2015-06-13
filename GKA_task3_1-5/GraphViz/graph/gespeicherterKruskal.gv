@@ -1,11 +1,15 @@
 graph G {
-  1 [ label="zwei" ];
-  2 [ label="vier" ];
-  3 [ label="fuenf" ];
-  4 [ label="drei" ];
-  5 [ label="eins" ];
-  1 -- 2 [ label="1.0" ];
-  3 -- 4 [ label="1.0" ];
-  3 -- 1 [ label="1.0" ];
-  3 -- 5 [ label="1.0" ];
+  1 [ label="Endknoten, 0" ];
+  2 [ label="2, 2" ];
+  3 [ label="6, 6" ];
+  4 [ label="7, 7" ];
+  5 [ label="8, 8" ];
+  6 [ label="10, 10" ];
+  7 [ label="9, 9" ];
+  1 -- 2 [ label="4.0" ];
+  3 -- 2 [ label="6.0" ];
+  4 -- 3 [ label="7.0" ];
+  3 -- 5 [ label="8.0" ];
+  1 -- 6 [ label="10.0" ];
+  3 -- 7 [ label="13.0" ];
 }

@@ -10,14 +10,17 @@ public class mainGenerateGraph
 {
 	public static void main(String[] args)
 	{
-		int gegebeneKnotenAnzahl = 20;
-		int min = 2;
-		Random random = new Random();		
-		int numEdge = random.nextInt((gegebeneKnotenAnzahl) - min + 1) + (2*gegebeneKnotenAnzahl);
+//		int gegebeneKnotenAnzahl = 20;
+//		int min = 2;
+//		Random random = new Random();		
+//		int numEdge = random.nextInt((gegebeneKnotenAnzahl) - min + 1) + (2*gegebeneKnotenAnzahl);
 		
 		//BIG
 //		int gegebeneKnotenAnzahl = 3000;
 //		int numEdge = 15000;
+		
+		int gegebeneKnotenAnzahl = 7;
+		int numEdge = 500;
 		
 		// NumVertexes, NumEdges
 		GraphGen_mit_Gewichtung_Heuristic gGen = new GraphGen_mit_Gewichtung_Heuristic(gegebeneKnotenAnzahl, numEdge);

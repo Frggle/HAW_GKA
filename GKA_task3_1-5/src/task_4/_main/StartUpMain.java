@@ -39,14 +39,14 @@ public class StartUpMain
 	public static void main(String[] args)
 	{
 		// Start und Endknoten der Suche
-//		CustomVertex start = new CustomVertex("Endknoten", 0);
-//		CustomVertex ende = new CustomVertex("Endknoten", 0);
+		CustomVertex start = new CustomVertex("Endknoten", 0);
+		CustomVertex ende = new CustomVertex("Endknoten", 0);
 
 //		CustomVertex start = new CustomVertex("Muenster", 237);
 //		CustomVertex ende = new CustomVertex("Hamburg", 0);
 		
-		CustomVertex start = new CustomVertex("eins");
-		CustomVertex ende = new CustomVertex("eins");
+//		CustomVertex start = new CustomVertex("eins");
+//		CustomVertex ende = new CustomVertex("eins");
 				
 		// welcher Algorithmus
 		// bfs = BreadthFirstSearch
@@ -55,7 +55,7 @@ public class StartUpMain
 		String algorithmus = "";
 
 		// Dateipfad
-		String path = "./src/bspGraphen/eulerNikolaus.graph";
+		String path = "./src/bspGraphen/eulerGroß.graph";
 
 		List<CustomVertex> loesung = programmStarten(path, start, ende, algorithmus);
 //		 List<CustomVertex> loesung = programmStarten(args[0], start, ende, args[1]);
@@ -358,8 +358,8 @@ public class StartUpMain
 		System.err.println("Kantenfolge Fleury " + fleury.gibKantenfolge());
 		
 		// Hierholzer
-		HierholzerEulertour hierholzer = new HierholzerEulertour(graph);
-		System.err.println("Kantenfolge Hierholzer " + hierholzer.gibKantenfolge());
+//		HierholzerEulertour hierholzer = new HierholzerEulertour(graph);
+//		System.err.println("Kantenfolge Hierholzer " + hierholzer.gibKantenfolge());
 		
 		System.err.println("");
 		

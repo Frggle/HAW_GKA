@@ -44,9 +44,11 @@ public class FleuryEulertour
 			
 			while (!unusedEdges.isEmpty())
 			{
+				System.err.println("aktKnoten " + aktKnoten.getVertexName());
 				CustomVertex nextV = nextVertex(unusedEdges, aktKnoten);
 				aktKnoten = nextV;
 				endKnoten = nextV;
+				System.err.println();
 			}	
 		} else
 		{
@@ -74,38 +76,59 @@ public class FleuryEulertour
 
 		ConnectivityInspector<CustomVertex, DefaultWeightedEdge> connectInspector;
 		Graph<CustomVertex, DefaultWeightedEdge> clonedGraph;
-		
+				
 		// Suche zuerst Kanten die keine Brücke sind (=> 2 Komponenten im Graph verursachen)
+		System.err.println("Knoten " + vertex.getVertexName() + ": " + inzidenteUnbenutzteKanten);
 		for (DefaultWeightedEdge e : inzidenteUnbenutzteKanten)
-		{
-//			clonedGraph = eulerGraph;
-			
+		{			
 			clonedGraph = (Graph<CustomVertex, DefaultWeightedEdge>) ((AbstractBaseGraph<CustomVertex, DefaultWeightedEdge>) g).clone();
 					
-			clonedGraph.removeEdge(e);
-								
-			connectInspector = new ConnectivityInspector<CustomVertex, DefaultWeightedEdge>((UndirectedGraph<CustomVertex, DefaultWeightedEdge>) clonedGraph);
+//			clonedGraph.removeEdge(e);
+											
+			CustomVertex source = clonedGraph.getEdgeSource(e);
+			CustomVertex target = clonedGraph.getEdgeTarget(e);
+			CustomVertex other = vertex.equals(source) ? target : source;
 			
-			if (!connectInspector.isGraphConnected())
+			Boolean isBridge = clonedGraph.edgesOf(other).size() > 1 ? false : true;
+			
+			System.err.println("Kante " + e + " ist Bridge: " + isBridge);
+			
+			if(isBridge)
 			{
 				bridgeEdges.add(e);
 			} else
 			{
 				nonBridges.add(e);
 			}
+			
+			connectInspector = new ConnectivityInspector<CustomVertex, DefaultWeightedEdge>((UndirectedGraph<CustomVertex, DefaultWeightedEdge>) clonedGraph);
+						
+			// Verursacht ein Error, ConnectivityInspector wird nicht bei jedem Durchlauf neu erzeugt, sondern übernimmt die Instanz von vorherigen
+//			if (!connectInspector.isGraphConnected())
+//			{
+//				bridgeEdges.add(e);
+//			} else
+//			{
+//				nonBridges.add(e);
+//			}
 		}
+		System.err.println("NonBridge " + nonBridges);
+		System.err.println("Bridge " + bridgeEdges);
 						
 		DefaultWeightedEdge edge = null;
 		if(nonBridges.isEmpty())
 		{
 			edge = bridgeEdges.get(0);
-		} else
+		} else if(bridgeEdges.isEmpty())
 		{
 			edge = nonBridges.get(0);
 		}
 		
 		unusedEdges.remove(edge);
 		kantenfolge.add(edge);
+		g.removeEdge(edge);
+		
+		System.err.println("entferne Kante " + edge);
 
 		CustomVertex source = g.getEdgeSource(edge);
 		CustomVertex target = g.getEdgeTarget(edge);

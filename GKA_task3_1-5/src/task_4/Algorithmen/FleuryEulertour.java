@@ -16,20 +16,25 @@ import task_4.CustomVertex;
 public class FleuryEulertour
 {
 	private List<DefaultWeightedEdge> kantenfolge;
-	private Graph<CustomVertex, DefaultWeightedEdge> g;
+	private Graph<CustomVertex, DefaultWeightedEdge> orgGraph;
+	private Graph<CustomVertex, DefaultWeightedEdge> clonedGraph;
 	private List<DefaultWeightedEdge> unusedEdges; 
 	private CustomVertex startKnoten;
 	private CustomVertex endKnoten;
 
+	@SuppressWarnings("unchecked")
 	public FleuryEulertour(Graph<CustomVertex, DefaultWeightedEdge> _g) throws IllegalArgumentException
 	{
-		g = _g;
+		orgGraph = _g;
+
+		clonedGraph = (Graph<CustomVertex, DefaultWeightedEdge>) ((AbstractBaseGraph<CustomVertex, DefaultWeightedEdge>) orgGraph).clone();
+
 		kantenfolge = new ArrayList<DefaultWeightedEdge>();
 
 		if(preconditions())
 		{
-			Set<CustomVertex> vertexMenge = g.vertexSet();
-			Set<DefaultWeightedEdge> edgeMenge = g.edgeSet();
+			Set<CustomVertex> vertexMenge = orgGraph.vertexSet();
+			Set<DefaultWeightedEdge> edgeMenge = orgGraph.edgeSet();
 
 			Iterator<CustomVertex> iterV = vertexMenge.iterator();
 			CustomVertex aktKnoten = iterV.next();
@@ -44,11 +49,11 @@ public class FleuryEulertour
 			
 			while (!unusedEdges.isEmpty())
 			{
-				System.err.println("aktKnoten " + aktKnoten.getVertexName());
+//				System.err.println("aktKnoten " + aktKnoten.getVertexName());
 				CustomVertex nextV = nextVertex(unusedEdges, aktKnoten);
 				aktKnoten = nextV;
 				endKnoten = nextV;
-				System.err.println();
+//				System.err.println();
 			}	
 		} else
 		{
@@ -56,12 +61,12 @@ public class FleuryEulertour
 		}	
 	}
 
-	@SuppressWarnings("unchecked")
 	private CustomVertex nextVertex(List<DefaultWeightedEdge> unusedE, CustomVertex vertex)
 	{
 		CustomVertex nextVertex = null;
 
-		Set<DefaultWeightedEdge> nachbarKanten = g.edgesOf(vertex);
+//		Set<DefaultWeightedEdge> nachbarKanten = orgGraph.edgesOf(vertex);
+		Set<DefaultWeightedEdge> nachbarKanten = orgGraph.edgesOf(vertex);
 		List<DefaultWeightedEdge> inzidenteUnbenutzteKanten = new ArrayList<DefaultWeightedEdge>();
 
 		// Zwischenschritt da edgesOf(vertex) eine ConcurrentModificationException wirft
@@ -74,14 +79,14 @@ public class FleuryEulertour
 		List<DefaultWeightedEdge> bridgeEdges = new ArrayList<DefaultWeightedEdge>();
 		List<DefaultWeightedEdge> nonBridges = new ArrayList<DefaultWeightedEdge>();
 
-		ConnectivityInspector<CustomVertex, DefaultWeightedEdge> connectInspector;
-		Graph<CustomVertex, DefaultWeightedEdge> clonedGraph;
+//		ConnectivityInspector<CustomVertex, DefaultWeightedEdge> connectInspector;
+//		Graph<CustomVertex, DefaultWeightedEdge> clonedGraph;
 				
 		// Suche zuerst Kanten die keine Brücke sind (=> 2 Komponenten im Graph verursachen)
-		System.err.println("Knoten " + vertex.getVertexName() + ": " + inzidenteUnbenutzteKanten);
+//		System.err.println("Knoten " + vertex.getVertexName() + ": " + inzidenteUnbenutzteKanten);
 		for (DefaultWeightedEdge e : inzidenteUnbenutzteKanten)
 		{			
-			clonedGraph = (Graph<CustomVertex, DefaultWeightedEdge>) ((AbstractBaseGraph<CustomVertex, DefaultWeightedEdge>) g).clone();
+//			clonedGraph = (Graph<CustomVertex, DefaultWeightedEdge>) ((AbstractBaseGraph<CustomVertex, DefaultWeightedEdge>) orgGraph).clone();
 					
 //			clonedGraph.removeEdge(e);
 											
@@ -91,7 +96,7 @@ public class FleuryEulertour
 			
 			Boolean isBridge = clonedGraph.edgesOf(other).size() > 1 ? false : true;
 			
-			System.err.println("Kante " + e + " ist Bridge: " + isBridge);
+//			System.err.println("Kante " + e + " ist Bridge: " + isBridge);
 			
 			if(isBridge)
 			{
@@ -101,7 +106,7 @@ public class FleuryEulertour
 				nonBridges.add(e);
 			}
 			
-			connectInspector = new ConnectivityInspector<CustomVertex, DefaultWeightedEdge>((UndirectedGraph<CustomVertex, DefaultWeightedEdge>) clonedGraph);
+//			connectInspector = new ConnectivityInspector<CustomVertex, DefaultWeightedEdge>((UndirectedGraph<CustomVertex, DefaultWeightedEdge>) clonedGraph);
 						
 			// Verursacht ein Error, ConnectivityInspector wird nicht bei jedem Durchlauf neu erzeugt, sondern übernimmt die Instanz von vorherigen
 //			if (!connectInspector.isGraphConnected())
@@ -112,8 +117,8 @@ public class FleuryEulertour
 //				nonBridges.add(e);
 //			}
 		}
-		System.err.println("NonBridge " + nonBridges);
-		System.err.println("Bridge " + bridgeEdges);
+//		System.err.println("NonBridge " + nonBridges);
+//		System.err.println("Bridge " + bridgeEdges);
 						
 		DefaultWeightedEdge edge = null;
 		if(nonBridges.isEmpty())
@@ -126,12 +131,12 @@ public class FleuryEulertour
 		
 		unusedEdges.remove(edge);
 		kantenfolge.add(edge);
-		g.removeEdge(edge);
+		clonedGraph.removeEdge(edge);
 		
-		System.err.println("entferne Kante " + edge);
+//		System.err.println("entferne Kante " + edge);
 
-		CustomVertex source = g.getEdgeSource(edge);
-		CustomVertex target = g.getEdgeTarget(edge);
+		CustomVertex source = orgGraph.getEdgeSource(edge);
+		CustomVertex target = orgGraph.getEdgeTarget(edge);
 				
 		nextVertex = vertex.equals(source) ? target : source;
 		
@@ -144,11 +149,11 @@ public class FleuryEulertour
 		
 		// Ist der Graph zusammenhängend?
 		ConnectivityInspector<CustomVertex, DefaultWeightedEdge> connect = 
-				new ConnectivityInspector<CustomVertex, DefaultWeightedEdge>((UndirectedGraph<CustomVertex, DefaultWeightedEdge>) g);
+				new ConnectivityInspector<CustomVertex, DefaultWeightedEdge>((UndirectedGraph<CustomVertex, DefaultWeightedEdge>) orgGraph);
 		
-		for(CustomVertex v : g.vertexSet())
+		for(CustomVertex v : orgGraph.vertexSet())
 		{
-			if(g.edgesOf(v).size() % 2 == 0)
+			if(orgGraph.edgesOf(v).size() % 2 == 0)
 			{
 				erfuellt = erfuellt && true;
 			} else
@@ -156,7 +161,6 @@ public class FleuryEulertour
 				erfuellt = erfuellt && false;
 			}
 		}
-		
 		return erfuellt && connect.isGraphConnected();
 	}
 	
@@ -164,6 +168,12 @@ public class FleuryEulertour
 	public List<DefaultWeightedEdge> gibKantenfolge()
 	{
 		return kantenfolge;
+	}
+	
+	/* Gib original Graph */
+	public Graph<CustomVertex, DefaultWeightedEdge> gibOrgGraph()
+	{
+		return orgGraph;
 	}
 	
 	/* Gibt den Startknoten von EulerTour */

@@ -27,9 +27,10 @@ public class FleuryTest
 
 		List<CustomVertex> temp = main.programmStarten(path, start, ende, "fleury");
 		Graph<CustomVertex, DefaultWeightedEdge> g = main.gibGraph();
-
+		
+		System.err.println("FleuryAnzahlKanten1, eulerMini1");
 		FleuryEulertour fleury = new FleuryEulertour(g);
-
+		
 		assertEquals(fleury.gibKantenfolge().size(), g.edgeSet().size());
 	}
 
@@ -47,6 +48,7 @@ public class FleuryTest
 		List<CustomVertex> temp = main.programmStarten(path, start, ende, "fleury");
 		Graph<CustomVertex, DefaultWeightedEdge> g = main.gibGraph();
 
+		System.err.println("FleuryAnzahlKanten2, eulerMini1");
 		FleuryEulertour fleury = new FleuryEulertour(g);
 
 		assertEquals(fleury.gibKantenfolge().size(), g.edgeSet().size());
@@ -70,6 +72,7 @@ public class FleuryTest
 		List<CustomVertex> temp = main.programmStarten(path, start, ende, "fleury");
 		Graph<CustomVertex, DefaultWeightedEdge> g = main.gibGraph();
 
+		System.err.println("FleuryStartEndknoten1, eulerMini1");
 		FleuryEulertour fleury = new FleuryEulertour(g);
 				
 		assertEquals(fleury.gibStartknoten(), fleury.gibEndknoten());
@@ -89,6 +92,7 @@ public class FleuryTest
 		List<CustomVertex> temp = main.programmStarten(path, start, ende, "fleury");
 		Graph<CustomVertex, DefaultWeightedEdge> g = main.gibGraph();
 
+		System.err.println("FleuryStartEndknoten2, eulerNikolaus");
 		FleuryEulertour fleury = new FleuryEulertour(g);
 
 		assertEquals(fleury.gibStartknoten(), fleury.gibEndknoten());

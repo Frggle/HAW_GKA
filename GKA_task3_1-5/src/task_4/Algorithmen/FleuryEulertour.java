@@ -119,7 +119,7 @@ public class FleuryEulertour
 		if(nonBridges.isEmpty())
 		{
 			edge = bridgeEdges.get(0);
-		} else if(bridgeEdges.isEmpty())
+		} else
 		{
 			edge = nonBridges.get(0);
 		}

@@ -17,6 +17,7 @@ import task_4.Algorithmen.AStarSearch;
 import task_4.Algorithmen.BreadthFirstSearch;
 import task_4.Algorithmen.DijkstraSearch;
 import task_4.Algorithmen.FleuryEulertour;
+import task_4.Algorithmen.HierholzerEulertour;
 import task_4.Algorithmen.Kruskal;
 import task_4.Algorithmen.Prim_Heap;
 import task_4.Algorithmen.Prim_ohne_Heap;
@@ -355,8 +356,8 @@ public class StartUpMain
 		System.err.println("Kantenfolge Fleury " + fleury.gibKantenfolge());
 		
 		// Hierholzer
-//		HierholzerEulertour hierholzer = new HierholzerEulertour(graph);
-//		System.err.println("Kantenfolge Hierholzer " + hierholzer.gibKantenfolge());
+		HierholzerEulertour hierholzer = new HierholzerEulertour(graph);
+		System.err.println("Kantenfolge Hierholzer " + hierholzer.gibKantenfolge());
 		
 		System.err.println("");
 		

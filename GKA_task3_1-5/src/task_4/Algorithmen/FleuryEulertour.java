@@ -49,11 +49,9 @@ public class FleuryEulertour
 			
 			while (!unusedEdges.isEmpty())
 			{
-//				System.err.println("aktKnoten " + aktKnoten.getVertexName());
 				CustomVertex nextV = nextVertex(unusedEdges, aktKnoten);
 				aktKnoten = nextV;
 				endKnoten = nextV;
-//				System.err.println();
 			}	
 		} else
 		{
@@ -65,7 +63,6 @@ public class FleuryEulertour
 	{
 		CustomVertex nextVertex = null;
 
-//		Set<DefaultWeightedEdge> nachbarKanten = orgGraph.edgesOf(vertex);
 		Set<DefaultWeightedEdge> nachbarKanten = orgGraph.edgesOf(vertex);
 		List<DefaultWeightedEdge> inzidenteUnbenutzteKanten = new ArrayList<DefaultWeightedEdge>();
 
@@ -78,26 +75,16 @@ public class FleuryEulertour
 
 		List<DefaultWeightedEdge> bridgeEdges = new ArrayList<DefaultWeightedEdge>();
 		List<DefaultWeightedEdge> nonBridges = new ArrayList<DefaultWeightedEdge>();
-
-//		ConnectivityInspector<CustomVertex, DefaultWeightedEdge> connectInspector;
-//		Graph<CustomVertex, DefaultWeightedEdge> clonedGraph;
 				
 		// Suche zuerst Kanten die keine Brücke sind (=> 2 Komponenten im Graph verursachen)
-//		System.err.println("Knoten " + vertex.getVertexName() + ": " + inzidenteUnbenutzteKanten);
 		for (DefaultWeightedEdge e : inzidenteUnbenutzteKanten)
-		{			
-//			clonedGraph = (Graph<CustomVertex, DefaultWeightedEdge>) ((AbstractBaseGraph<CustomVertex, DefaultWeightedEdge>) orgGraph).clone();
-					
-//			clonedGraph.removeEdge(e);
-											
+		{																			
 			CustomVertex source = clonedGraph.getEdgeSource(e);
 			CustomVertex target = clonedGraph.getEdgeTarget(e);
 			CustomVertex other = vertex.equals(source) ? target : source;
 			
 			Boolean isBridge = clonedGraph.edgesOf(other).size() > 1 ? false : true;
-			
-//			System.err.println("Kante " + e + " ist Bridge: " + isBridge);
-			
+						
 			if(isBridge)
 			{
 				bridgeEdges.add(e);
@@ -105,20 +92,7 @@ public class FleuryEulertour
 			{
 				nonBridges.add(e);
 			}
-			
-//			connectInspector = new ConnectivityInspector<CustomVertex, DefaultWeightedEdge>((UndirectedGraph<CustomVertex, DefaultWeightedEdge>) clonedGraph);
-						
-			// Verursacht ein Error, ConnectivityInspector wird nicht bei jedem Durchlauf neu erzeugt, sondern übernimmt die Instanz von vorherigen
-//			if (!connectInspector.isGraphConnected())
-//			{
-//				bridgeEdges.add(e);
-//			} else
-//			{
-//				nonBridges.add(e);
-//			}
 		}
-//		System.err.println("NonBridge " + nonBridges);
-//		System.err.println("Bridge " + bridgeEdges);
 						
 		DefaultWeightedEdge edge = null;
 		if(nonBridges.isEmpty())
@@ -133,8 +107,6 @@ public class FleuryEulertour
 		kantenfolge.add(edge);
 		clonedGraph.removeEdge(edge);
 		
-//		System.err.println("entferne Kante " + edge);
-
 		CustomVertex source = orgGraph.getEdgeSource(edge);
 		CustomVertex target = orgGraph.getEdgeTarget(edge);
 				

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.Stack;
 
 import org.jgrapht.Graph;
 import org.jgrapht.UndirectedGraph;
@@ -48,7 +49,6 @@ public class HierholzerEulertour
 			while(!edgeList.isEmpty())
 			{
 				konstruiereUnterkreise(aktKnoten);
-				System.err.println("--------------------------");
 				Iterator<CustomVertex> iterVtemp = g.vertexSet().iterator();
 				
 				Boolean notFound = true;
@@ -61,17 +61,57 @@ public class HierholzerEulertour
 						notFound = false;
 					}
 				}
-			}			
+			}
+			
 		} else
 		{
-			throw new IllegalArgumentException("Vorbedingung verletzt!!! -> keine Eulertour möglich");
-		}	
+			throw new IllegalArgumentException("Vorbedingung verletzt!!! -> keine Eulertour mÃ¶glich");
+		}
+		
+		kantenfolge = new ArrayList<DefaultWeightedEdge>();
+		Stack<List<DefaultWeightedEdge>> circleStack = new Stack<List<DefaultWeightedEdge>>();
+		circleStack.push(unterkreise.get(0));
+		
+		while(!circleStack.isEmpty())
+		{
+			List<DefaultWeightedEdge>currentCircle = circleStack.peek();
+			if(unterkreise.contains(currentCircle))
+			{
+				unterkreise.remove(currentCircle);
+			}
+				unvisitedLoop:
+				for(List<DefaultWeightedEdge> l : unterkreise)
+				{
+					for(DefaultWeightedEdge e : l)
+					{						
+						if(g.getEdgeSource(e).equals(g.getEdgeTarget(currentCircle.get(0))) /*&& !circleStack.contains(currentCircle)*/)
+						{
+							KreisSortieren(l, g.getEdgeSource(e));
+							circleStack.push(l);
+							break unvisitedLoop;
+						}
+						
+						if(g.getEdgeTarget(e).equals(g.getEdgeSource(currentCircle.get(0))) /*&& !circleStack.contains(currentCircle)*/)
+						{
+							KreisSortieren(l, g.getEdgeTarget(e));
+							circleStack.push(l);
+							break unvisitedLoop;
+						}
+					}
+				}
+				kantenfolge.add(currentCircle.get(0));
+				currentCircle.remove(0);
+			
+			if(currentCircle.isEmpty())
+			{
+				circleStack.pop();
+			}
+		}
 	}
 	
 	/* erstellt zufällige Unterkreise und löscht die benutzten Kanten aus dem clonedGraph */
 	private void konstruiereUnterkreise(CustomVertex v)
 	{
-		// TODO
 		CustomVertex aktKnoten = v;
 		CustomVertex endKnoten = null;
 		List<DefaultWeightedEdge> subListEdges = new ArrayList<DefaultWeightedEdge>();
@@ -80,15 +120,19 @@ public class HierholzerEulertour
 		while(!v.equals(endKnoten))
 		{
 			Set<DefaultWeightedEdge> nachbarKanten = clonedGraph.edgesOf(aktKnoten);
-			Iterator<DefaultWeightedEdge> iterE = nachbarKanten.iterator();
+			Iterator<DefaultWeightedEdge> iterE = nachbarKanten.iterator();			
 			DefaultWeightedEdge e = iterE.next();
+			while(!edgeList.contains(e))
+			{
+				e = iterE.next();
+			}
 			CustomVertex source = clonedGraph.getEdgeSource(e);
 			CustomVertex target = clonedGraph.getEdgeTarget(e);
 			aktKnoten = aktKnoten.equals(source) ? target : source;
 			endKnoten = aktKnoten;
 			subListEdges.add(e);
 			edgeList.remove(e);
-			System.err.println("subListEdges " + subListEdges);
+			clonedGraph.removeEdge(e);
 		}
 		
 		unterkreise.add(subListEdges);
@@ -99,7 +143,7 @@ public class HierholzerEulertour
 	{
 		Boolean erfuellt = true;
 		
-		// Ist der Graph zusammenhängend?
+		// Ist der Graph zusammenhÃ¤ngend?
 		ConnectivityInspector<CustomVertex, DefaultWeightedEdge> connect = 
 				new ConnectivityInspector<CustomVertex, DefaultWeightedEdge>((UndirectedGraph<CustomVertex, DefaultWeightedEdge>) g);
 		
@@ -114,6 +158,18 @@ public class HierholzerEulertour
 			}
 		}
 		return erfuellt && connect.isGraphConnected();
+	}
+	
+	//Ändert den kreis, so das die Kante mit dem gesuchten Knoten an erster Stelle steht
+	private void KreisSortieren(List<DefaultWeightedEdge> unterkreis, CustomVertex v)
+	{
+		while(!g.getEdgeTarget(unterkreis.get(0)).equals(v) && !g.getEdgeSource(unterkreis.get(0)).equals(v))
+		{
+			DefaultWeightedEdge e = unterkreis.get(0);
+			unterkreis.remove(e);
+			unterkreis.add(unterkreis.size(), e);
+		}
+		
 	}
 	
 	/* Gibt Kantenfolge für Eulertour zurück */

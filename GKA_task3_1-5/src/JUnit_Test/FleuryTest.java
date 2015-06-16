@@ -5,6 +5,8 @@ import static org.junit.Assert.*;
 import java.util.List;
 
 import org.jgrapht.Graph;
+import org.jgrapht.UndirectedGraph;
+import org.jgrapht.alg.ConnectivityInspector;
 import org.jgrapht.graph.DefaultWeightedEdge;
 import org.junit.Test;
 
@@ -14,7 +16,7 @@ import task_4._main.StartUpMain;
 
 public class FleuryTest
 {
-	// Kantenanzahl von G muss identisch sein mit Kantenanzahl von G'
+	// Kantenanzahl von G (Graph) muss identisch sein mit Kantenanzahl von G' (EulerTour)
 	@SuppressWarnings({ "static-access", "unused" })
 	@Test
 	public void FleuryAnzahlKanten1()
@@ -34,7 +36,7 @@ public class FleuryTest
 		assertEquals(fleury.gibKantenfolge().size(), g.edgeSet().size());
 	}
 
-	// Kantenanzahl von G muss identisch sein mit Kantenanzahl von G'
+	// Kantenanzahl von G (Graph) muss identisch sein mit Kantenanzahl von G' (EulerTour)
 	@SuppressWarnings({ "static-access", "unused" })
 	@Test
 	public void FleuryAnzahlKanten2()
@@ -57,6 +59,55 @@ public class FleuryTest
 	/*
 	 * ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	 */
+	
+	// Die Kantenfolge der Eulertour muss zusammenhängend sein und die Kanten müssen tatsächlich einen Zyklus bilden
+	@SuppressWarnings({ "static-access", "unused" })
+	@Test
+	public void ZusammenHaengendAlleKantenBenutzt()
+	{
+		String path = "./src/bspGraphen/eulerGroß.graph";
+		CustomVertex start = new CustomVertex("Endknoten", 0);
+		CustomVertex ende = new CustomVertex("Endknoten", 0);
+		
+		StartUpMain main = new StartUpMain();
+
+		List<CustomVertex> temp = main.programmStarten(path, start, ende, "fleury");
+		Graph<CustomVertex, DefaultWeightedEdge> g = main.gibGraph();
+
+		System.err.println("AlleKantenVerbunden, eulerGroß");
+		FleuryEulertour fleury = new FleuryEulertour(g);
+		
+		List<DefaultWeightedEdge> edgesEulertour = fleury.gibKantenfolge();
+		
+		Graph<CustomVertex, DefaultWeightedEdge> eulerGraph = null;
+		try
+		{
+			eulerGraph = fleury.gibEulerGraph();
+		} catch (Exception e1)
+		{
+			System.err.println("Fehler beim Fleury Eulergraph - JUnit Tests");
+		}
+		
+		ConnectivityInspector<CustomVertex, DefaultWeightedEdge> connect = 
+				new ConnectivityInspector<CustomVertex, DefaultWeightedEdge>((UndirectedGraph<CustomVertex, DefaultWeightedEdge>) eulerGraph);
+		assertTrue(connect.isGraphConnected());
+		
+		// Alle Kanten aus der Eulertour müssen identisch sein mit den Kanten aus dem Originalgraphen
+		Boolean selbenKantenAusOrginalGraph = true;
+		for(DefaultWeightedEdge edge : edgesEulertour)
+		{
+			selbenKantenAusOrginalGraph = selbenKantenAusOrginalGraph && g.containsEdge(edge);
+		}
+		assertTrue(selbenKantenAusOrginalGraph);
+		
+		// Es wurden alle Kanten aus dem Originalgraph verwendet
+		assertEquals(g.edgeSet().size(), edgesEulertour.size());
+	}
+	
+	/*
+	 * ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	 */
+
 
 	@SuppressWarnings({ "static-access", "unused" })
 	// Start- und Endknoten der Eulertour sind identisch

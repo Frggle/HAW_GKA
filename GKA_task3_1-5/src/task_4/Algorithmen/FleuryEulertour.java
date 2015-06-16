@@ -10,8 +10,10 @@ import org.jgrapht.UndirectedGraph;
 import org.jgrapht.alg.ConnectivityInspector;
 import org.jgrapht.graph.AbstractBaseGraph;
 import org.jgrapht.graph.DefaultWeightedEdge;
+import org.jgrapht.graph.Pseudograph;
 
 import task_4.CustomVertex;
+import task_4.Service.GraphVizExporter;
 
 public class FleuryEulertour
 {
@@ -134,6 +136,32 @@ public class FleuryEulertour
 			}
 		}
 		return erfuellt && connect.isGraphConnected();
+	}
+	
+	/* Gib die Eulertour als Graph zurück */
+	public Graph<CustomVertex, DefaultWeightedEdge> gibEulerGraph() throws Exception
+	{
+		Graph<CustomVertex, DefaultWeightedEdge> eulerGraph = new Pseudograph<CustomVertex, DefaultWeightedEdge>(DefaultWeightedEdge.class);
+		
+		for(CustomVertex v : orgGraph.vertexSet())
+		{
+			eulerGraph.addVertex(v);
+		}
+		
+		for(DefaultWeightedEdge e : kantenfolge)
+		{
+			CustomVertex source = orgGraph.getEdgeSource(e);
+			CustomVertex target = orgGraph.getEdgeTarget(e);
+			
+			eulerGraph.addEdge(source, target);
+		}
+		
+		if(eulerGraph.edgeSet().size() != orgGraph.edgeSet().size())
+		{
+			throw new Exception("Fehler beim Erstellen des Eulergraphs - Fleury");
+		}
+		new GraphVizExporter().exportGraphToDotFile(eulerGraph, "gespeicherterEulerGraphFleury");
+		return eulerGraph;
 	}
 	
 	/* Gibt Kantenfolge für Eulertour zurück */

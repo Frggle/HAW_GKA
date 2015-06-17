@@ -51,7 +51,6 @@ public class StartUpMain
 		String algorithmus = "";
 
 		// Dateipfad
-//		String path = "./src/bspGraphen/eulerGroß.graph";
 //		String path = "./src/bspGraphen/eulerMini1.graph";
 		String path = "./src/bspGraphen/eulerNikolaus.graph";
 

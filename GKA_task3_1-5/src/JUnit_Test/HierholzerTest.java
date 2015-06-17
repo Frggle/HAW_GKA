@@ -12,6 +12,7 @@ import org.junit.Test;
 
 import task_4.CustomVertex;
 import task_4.Algorithmen.HierholzerEulertour;
+import task_4.GraphGenerator.EulerGraphGenerator;
 import task_4._main.StartUpMain;
 
 public class HierholzerTest
@@ -65,9 +66,9 @@ public class HierholzerTest
 	@Test
 	public void ZusammenHaengendAlleKantenBenutzt()
 	{
-		String path = "./src/bspGraphen/eulerGroß.graph";
-		CustomVertex start = new CustomVertex("Endknoten", 0);
-		CustomVertex ende = new CustomVertex("Endknoten", 0);
+		String path = "./src/bspGraphen/eulerNikolaus.graph";
+		CustomVertex start = new CustomVertex("eins");
+		CustomVertex ende = new CustomVertex("eins");
 		
 		StartUpMain main = new StartUpMain();
 
@@ -195,26 +196,38 @@ public class HierholzerTest
 			assertEquals(hierholzer.gibStartknoten(), hierholzer.gibEndknoten());
 		}
 	}
-	
-	@SuppressWarnings({ "static-access", "unused" })
+		
 	@Test
-	public void Hierholzer100Zyklen3()
+	public void RandomEulerGraph()
 	{
-		String path = "./src/bspGraphen/eulerGroß.graph";
-		CustomVertex start = new CustomVertex("Endknoten", 0);
-		CustomVertex ende = new CustomVertex("Endknoten", 0);
-
-		StartUpMain main = new StartUpMain();
-
-		List<CustomVertex> temp = main.programmStarten(path, start, ende, "Hierholzer");
-		Graph<CustomVertex, DefaultWeightedEdge> g = main.gibGraph();
-
-		HierholzerEulertour hierholzer;
-
-		for (int i = 1; i <= 100; i++)
+		EulerGraphGenerator gen;
+		
+		for(int i = 3; i<=40; i++)
 		{
-			hierholzer = new HierholzerEulertour(g);	
+			gen = new EulerGraphGenerator();
+			gen.baueEulerGraph(i);
+			Graph<CustomVertex, DefaultWeightedEdge> erzeugterGraph = gen.gibEulerGraph();
+			
+			HierholzerEulertour hierholzer = new HierholzerEulertour(erzeugterGraph);
+			Graph<CustomVertex, DefaultWeightedEdge> hierholzerEulerGraph = null;
+			try
+			{
+				hierholzerEulerGraph = hierholzer.gibEulerGraph();
+			} catch (Exception e)
+			{
+				System.err.println("Error beim Hierholzer");
+			}
+			
+			// Testet ob Eulertour zusammenhängend ist
+			ConnectivityInspector<CustomVertex, DefaultWeightedEdge> connect = 
+					new ConnectivityInspector<CustomVertex, DefaultWeightedEdge>((UndirectedGraph<CustomVertex, DefaultWeightedEdge>) hierholzerEulerGraph);
+			assertTrue(connect.isGraphConnected());
+			
+			// Start und Endknoten sind identisch
 			assertEquals(hierholzer.gibStartknoten(), hierholzer.gibEndknoten());
+			
+			// Selbe Anzahl an Kanten
+			assertEquals(hierholzer.gibKantenfolge().size(), erzeugterGraph.edgeSet().size());
 		}
 	}
 	

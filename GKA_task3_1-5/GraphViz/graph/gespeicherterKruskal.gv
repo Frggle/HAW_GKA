@@ -1,11 +1,11 @@
 graph G {
-  1 [ label="fuenf" ];
-  2 [ label="drei" ];
-  3 [ label="zwei" ];
-  4 [ label="eins" ];
-  5 [ label="vier" ];
+  1 [ label="zwei" ];
+  2 [ label="vier" ];
+  3 [ label="fuenf" ];
+  4 [ label="drei" ];
+  5 [ label="eins" ];
   1 -- 2 [ label="1.0" ];
-  1 -- 3 [ label="1.0" ];
-  1 -- 4 [ label="1.0" ];
-  5 -- 1 [ label="1.0" ];
+  3 -- 4 [ label="1.0" ];
+  3 -- 1 [ label="1.0" ];
+  3 -- 5 [ label="1.0" ];
 }

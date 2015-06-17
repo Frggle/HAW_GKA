@@ -12,6 +12,7 @@ import org.junit.Test;
 
 import task_4.CustomVertex;
 import task_4.Algorithmen.FleuryEulertour;
+import task_4.GraphGenerator.EulerGraphGenerator;
 import task_4._main.StartUpMain;
 
 public class FleuryTest
@@ -65,16 +66,16 @@ public class FleuryTest
 	@Test
 	public void ZusammenHaengendAlleKantenBenutzt()
 	{
-		String path = "./src/bspGraphen/eulerGroß.graph";
-		CustomVertex start = new CustomVertex("Endknoten", 0);
-		CustomVertex ende = new CustomVertex("Endknoten", 0);
+		String path = "./src/bspGraphen/eulerNikolaus.graph";
+		CustomVertex start = new CustomVertex("eins");
+		CustomVertex ende = new CustomVertex("eins");
 		
 		StartUpMain main = new StartUpMain();
 
 		List<CustomVertex> temp = main.programmStarten(path, start, ende, "fleury");
 		Graph<CustomVertex, DefaultWeightedEdge> g = main.gibGraph();
 
-		System.err.println("AlleKantenVerbunden, eulerGroß");
+		System.err.println("AlleKantenVerbunden, eulerNikolaus");
 		FleuryEulertour fleury = new FleuryEulertour(g);
 		
 		List<DefaultWeightedEdge> edgesEulertour = fleury.gibKantenfolge();
@@ -153,69 +154,103 @@ public class FleuryTest
 	 * ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	 */
 
-	@SuppressWarnings({ "static-access", "unused" })
-	@Test
-	public void Fleury100Zyklen1()
-	{
-		String path = "./src/bspGraphen/eulerNikolaus.graph";
-		CustomVertex start = new CustomVertex("eins");
-		CustomVertex ende = new CustomVertex("eins");
-
-		StartUpMain main = new StartUpMain();
-
-		List<CustomVertex> temp = main.programmStarten(path, start, ende, "fleury");
-		Graph<CustomVertex, DefaultWeightedEdge> g = main.gibGraph();
-
-		FleuryEulertour fleury;
-
-		for (int i = 1; i <= 100; i++)
-		{
-			fleury = new FleuryEulertour(g);	
-			assertEquals(fleury.gibStartknoten(), fleury.gibEndknoten());
-		}
-	}
+//	@SuppressWarnings({ "static-access", "unused" })
+//	@Test
+//	public void Fleury100Zyklen1()
+//	{
+//		String path = "./src/bspGraphen/eulerNikolaus.graph";
+//		CustomVertex start = new CustomVertex("eins");
+//		CustomVertex ende = new CustomVertex("eins");
+//
+//		StartUpMain main = new StartUpMain();
+//
+//		List<CustomVertex> temp = main.programmStarten(path, start, ende, "fleury");
+//		Graph<CustomVertex, DefaultWeightedEdge> g = main.gibGraph();
+//
+//		FleuryEulertour fleury;
+//
+//		for (int i = 1; i <= 100; i++)
+//		{
+//			fleury = new FleuryEulertour(g);	
+//			assertEquals(fleury.gibStartknoten(), fleury.gibEndknoten());
+//		}
+//	}
+//	
+//	@SuppressWarnings({ "static-access", "unused" })
+//	@Test
+//	public void Fleury100Zyklen2()
+//	{
+//		String path = "./src/bspGraphen/eulerMini1.graph";
+//		CustomVertex start = new CustomVertex("eins");
+//		CustomVertex ende = new CustomVertex("eins");
+//
+//		StartUpMain main = new StartUpMain();
+//
+//		List<CustomVertex> temp = main.programmStarten(path, start, ende, "fleury");
+//		Graph<CustomVertex, DefaultWeightedEdge> g = main.gibGraph();
+//
+//		FleuryEulertour fleury;
+//
+//		for (int i = 1; i <= 100; i++)
+//		{
+//			fleury = new FleuryEulertour(g);	
+//			assertEquals(fleury.gibStartknoten(), fleury.gibEndknoten());
+//		}
+//	}
+//	
+//	@SuppressWarnings({ "static-access", "unused" })
+//	@Test
+//	public void Fleury100Zyklen3()
+//	{
+//		String path = "./src/bspGraphen/eulerGroß.graph";
+//		CustomVertex start = new CustomVertex("Endknoten", 0);
+//		CustomVertex ende = new CustomVertex("Endknoten", 0);
+//
+//		StartUpMain main = new StartUpMain();
+//
+//		List<CustomVertex> temp = main.programmStarten(path, start, ende, "fleury");
+//		Graph<CustomVertex, DefaultWeightedEdge> g = main.gibGraph();
+//
+//		FleuryEulertour fleury;
+//
+//		for (int i = 1; i <= 100; i++)
+//		{
+//			fleury = new FleuryEulertour(g);	
+//			assertEquals(fleury.gibStartknoten(), fleury.gibEndknoten());
+//		}
+//	}
 	
-	@SuppressWarnings({ "static-access", "unused" })
 	@Test
-	public void Fleury100Zyklen2()
+	public void RandomEulerGraph()
 	{
-		String path = "./src/bspGraphen/eulerMini1.graph";
-		CustomVertex start = new CustomVertex("eins");
-		CustomVertex ende = new CustomVertex("eins");
-
-		StartUpMain main = new StartUpMain();
-
-		List<CustomVertex> temp = main.programmStarten(path, start, ende, "fleury");
-		Graph<CustomVertex, DefaultWeightedEdge> g = main.gibGraph();
-
-		FleuryEulertour fleury;
-
-		for (int i = 1; i <= 100; i++)
+		EulerGraphGenerator gen;
+		
+		for(int i = 3; i<=40; i++)
 		{
-			fleury = new FleuryEulertour(g);	
+			gen = new EulerGraphGenerator();
+			gen.baueEulerGraph(i);
+			Graph<CustomVertex, DefaultWeightedEdge> erzeugterGraph = gen.gibEulerGraph();
+			
+			FleuryEulertour fleury = new FleuryEulertour(erzeugterGraph);
+			Graph<CustomVertex, DefaultWeightedEdge> fleuryEulerGraph = null;
+			try
+			{
+				fleuryEulerGraph = fleury.gibEulerGraph();
+			} catch (Exception e)
+			{
+				System.err.println("Error beim Fleury");
+			}
+			
+			// Testet ob Eulertour zusammenhängend ist
+			ConnectivityInspector<CustomVertex, DefaultWeightedEdge> connect = 
+					new ConnectivityInspector<CustomVertex, DefaultWeightedEdge>((UndirectedGraph<CustomVertex, DefaultWeightedEdge>) fleuryEulerGraph);
+			assertTrue(connect.isGraphConnected());
+			
+			// Start und Endknoten sind identisch
 			assertEquals(fleury.gibStartknoten(), fleury.gibEndknoten());
-		}
-	}
-	
-	@SuppressWarnings({ "static-access", "unused" })
-	@Test
-	public void Fleury100Zyklen3()
-	{
-		String path = "./src/bspGraphen/eulerGroß.graph";
-		CustomVertex start = new CustomVertex("Endknoten", 0);
-		CustomVertex ende = new CustomVertex("Endknoten", 0);
-
-		StartUpMain main = new StartUpMain();
-
-		List<CustomVertex> temp = main.programmStarten(path, start, ende, "fleury");
-		Graph<CustomVertex, DefaultWeightedEdge> g = main.gibGraph();
-
-		FleuryEulertour fleury;
-
-		for (int i = 1; i <= 100; i++)
-		{
-			fleury = new FleuryEulertour(g);	
-			assertEquals(fleury.gibStartknoten(), fleury.gibEndknoten());
+			
+			// Selbe Anzahl an Kanten
+			assertEquals(fleury.gibKantenfolge().size(), erzeugterGraph.edgeSet().size());
 		}
 	}
 	

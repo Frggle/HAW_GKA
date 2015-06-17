@@ -86,16 +86,11 @@ public class HierholzerEulertour
 				{
 					for(DefaultWeightedEdge e : l)
 					{						
-						if(g.getEdgeSource(e).equals(g.getEdgeTarget(currentCircle.get(0))) /*&& !circleStack.contains(currentCircle)*/)
+						boolean sourceTarget = g.getEdgeSource(e).equals(g.getEdgeTarget(currentCircle.get(0)));
+						boolean targetSource = g.getEdgeTarget(e).equals(g.getEdgeSource(currentCircle.get(0)));
+						if (sourceTarget || targetSource)
 						{
-							KreisSortieren(l, g.getEdgeSource(e));
-							circleStack.push(l);
-							break unvisitedLoop;
-						}
-						
-						if(g.getEdgeTarget(e).equals(g.getEdgeSource(currentCircle.get(0))) /*&& !circleStack.contains(currentCircle)*/)
-						{
-							KreisSortieren(l, g.getEdgeTarget(e));
+							KreisSortieren(l, sourceTarget ? g.getEdgeSource(e) : g.getEdgeTarget(e));
 							circleStack.push(l);
 							break unvisitedLoop;
 						}
@@ -195,7 +190,7 @@ public class HierholzerEulertour
 		{
 			throw new Exception("Fehler beim Erstellen des Eulergraphs - Fleury");
 		}
-		new GraphVizExporter().exportGraphToDotFile(eulerGraph, "gespeicherterEulerGraphFleury");
+		new GraphVizExporter().exportGraphToDotFile(eulerGraph, "gespeicherterEulerGraphHierholzer");
 		return eulerGraph;
 	}
 	

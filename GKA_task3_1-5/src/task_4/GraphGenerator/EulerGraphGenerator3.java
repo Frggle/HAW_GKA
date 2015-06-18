@@ -10,12 +10,13 @@ import org.jgrapht.graph.Pseudograph;
 
 import task_4.CustomVertex;
 
-public class EulerGraphGenerator
+public class EulerGraphGenerator3
 {
 	private int knotenAnzahl;
 	private Graph<CustomVertex, DefaultWeightedEdge> eulerGraph;
+	private List<CustomVertex> ungeradeKnoten;
 	
-	public EulerGraphGenerator()
+	public EulerGraphGenerator3()
 	{
 		eulerGraph = new Pseudograph<CustomVertex, DefaultWeightedEdge>(DefaultWeightedEdge.class);
 	}
@@ -32,6 +33,7 @@ public class EulerGraphGenerator
 			knotenAnzahl = _knotenAnzahl;	
 		}
 	
+		ungeradeKnoten = new ArrayList<CustomVertex>();
 				
 		CustomVertex vorgaengerKnoten = new CustomVertex("0");
 		eulerGraph.addVertex(vorgaengerKnoten);
@@ -41,8 +43,11 @@ public class EulerGraphGenerator
 			CustomVertex neuerKnoten = new CustomVertex(""+i);
 			eulerGraph.addVertex(neuerKnoten);
 			
+			
+			ungeradeKnoten.add(neuerKnoten);
+			
 			// Kante zwischen neu erstellen Knoten und dem Vorgängerknoten
-			eulerGraph.addEdge(neuerKnoten, vorgaengerKnoten);
+//			eulerGraph.addEdge(neuerKnoten, vorgaengerKnoten);
 			
 			CustomVertex knotenMitUngerademGrad = null;
 			List<CustomVertex> ungeradeKnotenListe = knotenMitUngerademGrad(neuerKnoten);

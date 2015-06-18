@@ -94,12 +94,14 @@ public class FleuryTest
 		assertTrue(connect.isGraphConnected());
 		
 		// Alle Kanten aus der Eulertour müssen identisch sein mit den Kanten aus dem Originalgraphen
-		Boolean selbenKantenAusOrginalGraph = true;
-		for(DefaultWeightedEdge edge : edgesEulertour)
-		{
-			selbenKantenAusOrginalGraph = selbenKantenAusOrginalGraph && g.containsEdge(edge);
-		}
-		assertTrue(selbenKantenAusOrginalGraph);
+//		Boolean selbenKantenAusOrginalGraph = true;
+		assert(edgesEulertour.containsAll(g.edgeSet()));
+		
+//		for(DefaultWeightedEdge edge : edgesEulertour)
+//		{
+//			selbenKantenAusOrginalGraph = selbenKantenAusOrginalGraph && g.containsEdge(edge);
+//		}
+//		assertTrue(selbenKantenAusOrginalGraph);
 		
 		// Es wurden alle Kanten aus dem Originalgraph verwendet
 		assertEquals(g.edgeSet().size(), edgesEulertour.size());

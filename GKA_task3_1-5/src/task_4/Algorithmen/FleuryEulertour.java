@@ -28,9 +28,7 @@ public class FleuryEulertour
 	public FleuryEulertour(Graph<CustomVertex, DefaultWeightedEdge> _g) throws IllegalArgumentException
 	{
 		orgGraph = _g;
-
 		clonedGraph = (Graph<CustomVertex, DefaultWeightedEdge>) ((AbstractBaseGraph<CustomVertex, DefaultWeightedEdge>) orgGraph).clone();
-
 		kantenfolge = new ArrayList<DefaultWeightedEdge>();
 
 		if(preconditions())
@@ -81,11 +79,7 @@ public class FleuryEulertour
 		List<DefaultWeightedEdge> bridgeEdges = new ArrayList<DefaultWeightedEdge>();
 		List<DefaultWeightedEdge> nonBridges = new ArrayList<DefaultWeightedEdge>();
 				
-		// Suche zuerst Kanten die keine Brücke sind (=> 2 Komponenten im Graph verursachen)
-		
-//		System.err.println("Knoten " + vertex.getVertexName() + ": " + inzidenteUnbenutzteKanten);
-//		System.err.println("       " + kantenfolge);
-		
+		// Suche zuerst Kanten die keine Brücke sind (=> 2 Komponenten im Graph verursachen)		
 		for (DefaultWeightedEdge e : inzidenteUnbenutzteKanten)
 		{																			
 //			CustomVertex source = clonedGraph.getEdgeSource(e);
@@ -104,11 +98,9 @@ public class FleuryEulertour
 			if(!connect.isGraphConnected())
 			{
 				bridgeEdges.add(e);
-//				System.err.println("	Bridge " + e);
 			} else
 			{
 				nonBridges.add(e);
-//				System.err.println("	Keine Bridge " + e);
 			}
 		}
 						
@@ -120,9 +112,7 @@ public class FleuryEulertour
 		{
 			edge = nonBridges.get(0);
 		}
-		
-//		System.err.println("       " + edge);
-		
+				
 		unusedEdges.remove(edge);
 		kantenfolge.add(edge);
 		clonedGraph.removeEdge(edge);

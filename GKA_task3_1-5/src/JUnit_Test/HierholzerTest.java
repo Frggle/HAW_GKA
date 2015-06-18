@@ -75,7 +75,7 @@ public class HierholzerTest
 		List<CustomVertex> temp = main.programmStarten(path, start, ende, "fleury");
 		Graph<CustomVertex, DefaultWeightedEdge> g = main.gibGraph();
 
-		System.err.println("AlleKantenVerbunden, eulerGroß");
+		System.err.println("AlleKantenVerbunden, eulerNikolaus");
 		HierholzerEulertour hierholzer = new HierholzerEulertour(g);
 		
 		List<DefaultWeightedEdge> edgesEulertour = hierholzer.gibKantenfolge();
@@ -86,7 +86,7 @@ public class HierholzerTest
 			eulerGraph = hierholzer.gibEulerGraph();
 		} catch (Exception e1)
 		{
-			System.err.println("Fehler beim Fleury Eulergraph - JUnit Tests");
+			System.err.println("Fehler beim Hierholzer Eulergraph - JUnit Tests");
 		}
 		
 		ConnectivityInspector<CustomVertex, DefaultWeightedEdge> connect = 
@@ -94,12 +94,13 @@ public class HierholzerTest
 		assertTrue(connect.isGraphConnected());
 		
 		// Alle Kanten aus der Eulertour müssen identisch sein mit den Kanten aus dem Originalgraphen
-		Boolean selbenKantenAusOrginalGraph = true;
-		for(DefaultWeightedEdge edge : edgesEulertour)
-		{
-			selbenKantenAusOrginalGraph = selbenKantenAusOrginalGraph && g.containsEdge(edge);
-		}
-		assertTrue(selbenKantenAusOrginalGraph);
+		assert(edgesEulertour.containsAll(g.edgeSet()));
+//		Boolean selbenKantenAusOrginalGraph = true;
+//		for(DefaultWeightedEdge edge : edgesEulertour)
+//		{
+//			selbenKantenAusOrginalGraph = selbenKantenAusOrginalGraph && g.containsEdge(edge);
+//		}
+//		assertTrue(selbenKantenAusOrginalGraph);
 		
 		// Es wurden alle Kanten aus dem Originalgraph verwendet
 		assertEquals(g.edgeSet().size(), edgesEulertour.size());
@@ -153,49 +154,49 @@ public class HierholzerTest
 	 * ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	 */
 
-	@SuppressWarnings({ "static-access", "unused" })
-	@Test
-	public void Hierholzer100Zyklen1()
-	{
-		String path = "./src/bspGraphen/eulerNikolaus.graph";
-		CustomVertex start = new CustomVertex("eins");
-		CustomVertex ende = new CustomVertex("eins");
-
-		StartUpMain main = new StartUpMain();
-
-		List<CustomVertex> temp = main.programmStarten(path, start, ende, "Hierholzer");
-		Graph<CustomVertex, DefaultWeightedEdge> g = main.gibGraph();
-
-		HierholzerEulertour hierholzer;
-
-		for (int i = 1; i <= 100; i++)
-		{
-			hierholzer = new HierholzerEulertour(g);	
-			assertEquals(hierholzer.gibStartknoten(), hierholzer.gibEndknoten());
-		}
-	}
-	
-	@SuppressWarnings({ "static-access", "unused" })
-	@Test
-	public void Hierholzer100Zyklen2()
-	{
-		String path = "./src/bspGraphen/eulerMini1.graph";
-		CustomVertex start = new CustomVertex("eins");
-		CustomVertex ende = new CustomVertex("eins");
-
-		StartUpMain main = new StartUpMain();
-
-		List<CustomVertex> temp = main.programmStarten(path, start, ende, "Hierholzer");
-		Graph<CustomVertex, DefaultWeightedEdge> g = main.gibGraph();
-
-		HierholzerEulertour hierholzer;
-
-		for (int i = 1; i <= 100; i++)
-		{
-			hierholzer = new HierholzerEulertour(g);	
-			assertEquals(hierholzer.gibStartknoten(), hierholzer.gibEndknoten());
-		}
-	}
+//	@SuppressWarnings({ "static-access", "unused" })
+//	@Test
+//	public void Hierholzer100Zyklen1()
+//	{
+//		String path = "./src/bspGraphen/eulerNikolaus.graph";
+//		CustomVertex start = new CustomVertex("eins");
+//		CustomVertex ende = new CustomVertex("eins");
+//
+//		StartUpMain main = new StartUpMain();
+//
+//		List<CustomVertex> temp = main.programmStarten(path, start, ende, "Hierholzer");
+//		Graph<CustomVertex, DefaultWeightedEdge> g = main.gibGraph();
+//
+//		HierholzerEulertour hierholzer;
+//
+//		for (int i = 1; i <= 100; i++)
+//		{
+//			hierholzer = new HierholzerEulertour(g);	
+//			assertEquals(hierholzer.gibStartknoten(), hierholzer.gibEndknoten());
+//		}
+//	}
+//	
+//	@SuppressWarnings({ "static-access", "unused" })
+//	@Test
+//	public void Hierholzer100Zyklen2()
+//	{
+//		String path = "./src/bspGraphen/eulerMini1.graph";
+//		CustomVertex start = new CustomVertex("eins");
+//		CustomVertex ende = new CustomVertex("eins");
+//
+//		StartUpMain main = new StartUpMain();
+//
+//		List<CustomVertex> temp = main.programmStarten(path, start, ende, "Hierholzer");
+//		Graph<CustomVertex, DefaultWeightedEdge> g = main.gibGraph();
+//
+//		HierholzerEulertour hierholzer;
+//
+//		for (int i = 1; i <= 100; i++)
+//		{
+//			hierholzer = new HierholzerEulertour(g);	
+//			assertEquals(hierholzer.gibStartknoten(), hierholzer.gibEndknoten());
+//		}
+//	}
 		
 	@Test
 	public void RandomEulerGraph()
